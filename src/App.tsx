@@ -1,19 +1,21 @@
-import React, { useState } from 'react'
-import reactLogo from './assets/react.svg'
+import React, { useState } from 'react';
+import { useCounter } from '@/storehooks/useCounter';
+import reactLogo from './assets/react.svg';
 import './App.css'
 
-type AccordionProps = {
-  title: string;
-  children: React.ReactNode;
+type CounterProps = {
+  initNum?: number;
+  // title: string;
+  // children: React.ReactNode;
 }
 
-function App(props: AccordionProps) {
-  const [count, setCount] = useState(0);
+function App(props: CounterProps) {
   const [show, setShow] = useState(false);
-  const {title, children} = props;
-  const onAccordionClick = () => {
-      setShow(!show);
-  };
+  const { initNum } = props;
+  const { count, increment } = useCounter(initNum);
+  // const onAccordionClick = () => {
+  //     setShow(!show);
+  // };
 
   return (
     <div className="App">
@@ -25,18 +27,20 @@ function App(props: AccordionProps) {
           <img src={reactLogo} className="logo react" alt="React logo" />
         </a>
       </div>
-      <h1>{title}</h1>
+      <h1>Vite + Vitest + React</h1>
       <div className="card">
-        <button onClick={() => onAccordionClick()}>{!show ? 'Show' : 'Hide'}</button>
+        {/* <button onClick={() => onAccordionClick()}>{!show ? 'Show' : 'Hide'}</button>
         {show && (
             <p>
                 {children}
             </p>
-        )}
+        )} */}
+        <p>count is: {count}</p>
+        {/* role="counter" */}
+        <button
+          onClick={increment}
+        >+</button>
 
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
         <p>
           Edit <code>src/App.tsx</code> and save to test HMR
         </p>
